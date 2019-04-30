@@ -26,13 +26,10 @@ public class CustomerDAOImpl implements CustomerDAO {
         // create query
         Query theQuery = currentSession.createQuery("from Customer");
 
+        // execute query and get result list
         List<Customer> customers = theQuery.list();
 
-        // execute query and get result list
-
         // return the results
-
-
-        return null;
+        return customers;
     }
 }
