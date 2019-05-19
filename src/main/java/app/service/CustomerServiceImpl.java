@@ -14,10 +14,6 @@ import java.util.List;
 @Service
 public class CustomerServiceImpl implements CustomerService {
 
-    // inject the session factory
-    @Autowired
-    private SessionFactory sessionFactory;
-
     // inject customer dao
     @Autowired
     private CustomerDAO customerDAO;
@@ -26,18 +22,13 @@ public class CustomerServiceImpl implements CustomerService {
     @Transactional
     public List<Customer> getCustomers() {
 
-        // get the current hibernate session
-        Session currentSession = sessionFactory.getCurrentSession();
-
-        // create a query
-        Query theQuery =
-                currentSession.createQuery("from Customer");
-
         return customerDAO.getCustomers();
     }
 
+    @Override
+    @Transactional
+    public void saveCustomer(Customer theCustomer) {
 
-
-
-
+        customerDAO.saveCustomer(theCustomer);
+    }
 }
