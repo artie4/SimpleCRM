@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.UUID;
 
 @Repository
 public class CustomerDAOImpl implements CustomerDAO {
@@ -41,7 +42,18 @@ public class CustomerDAOImpl implements CustomerDAO {
         Session currentSession = sessionFactory.getCurrentSession();
 
         // save the customer ... finally
-        currentSession.save(theCustomer);
+        currentSession.saveOrUpdate(theCustomer);
 
+    }
+
+    @Override
+    @Transactional
+    public Customer getCustomer(UUID theId) {
+
+        Session currentSession = sessionFactory.getCurrentSession();
+
+        Customer theCustomer = currentSession.get(Customer.class, theId);
+
+        return theCustomer;
     }
 }

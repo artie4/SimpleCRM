@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
@@ -30,5 +31,11 @@ public class CustomerServiceImpl implements CustomerService {
     public void saveCustomer(Customer theCustomer) {
 
         customerDAO.saveCustomer(theCustomer);
+    }
+
+    @Override
+    public Customer getCustomer(UUID theId) {
+
+        return customerDAO.getCustomer(theId);
     }
 }
