@@ -13,4 +13,6 @@ public interface CustomerDAO {
 
     Customer getCustomer(UUID theId);
 
+    void deleteCustomer(UUID theId);
+
 }

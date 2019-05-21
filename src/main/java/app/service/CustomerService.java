@@ -13,4 +13,6 @@ public interface CustomerService {
 
     Customer getCustomer(UUID theId);
 
+    void deleteCustomer(UUID theId);
+
 }
