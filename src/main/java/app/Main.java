@@ -2,6 +2,7 @@ package app;
 
 import java.sql.*;
 import java.text.SimpleDateFormat;
+import java.util.logging.Logger;
 
 public class Main {
     public static void main(String[] args) {
@@ -17,6 +18,9 @@ public class Main {
         String query = "select * from DUMMY.employees_copy where HIRE_DATE > to_date(" + new SimpleDateFormat("dd-MM-YYYY").format(new java.util.Date()) + ",'DD-MM-YYYY')";
 
         System.out.println(d);
+
+        Logger logger = Logger.getLogger(Main.class.getName());
+
 
         try (Connection connection = DriverManager.getConnection(jdbcUrl, user, pass);
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
