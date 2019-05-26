@@ -24,7 +24,7 @@ public class HibernateConfiguration {
     private Environment env;
 
     @Bean
-    public LocalSessionFactoryBean sessionFactory() throws SQLException{
+    public LocalSessionFactoryBean sessionFactory() throws SQLException {
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
         sessionFactory.setDataSource(dataSource());
         sessionFactory.setPackagesToScan("app.model");
@@ -34,8 +34,8 @@ public class HibernateConfiguration {
     }
 
     @Bean
-    public DataSource dataSource() throws SQLException{
-        OracleDataSource dataSource = new OracleDataSource();;
+    public DataSource dataSource() throws SQLException {
+        OracleDataSource dataSource = new OracleDataSource();
 
         dataSource.setDriverType(env.getProperty("jdbc.driver"));
         dataSource.setURL(env.getProperty("jdbc.url"));
@@ -55,7 +55,7 @@ public class HibernateConfiguration {
     }
 
     @Bean
-    public PlatformTransactionManager hibernateTransactionManager() throws SQLException{
+    public PlatformTransactionManager hibernateTransactionManager() throws SQLException {
         HibernateTransactionManager transactionManager
                 = new HibernateTransactionManager();
 

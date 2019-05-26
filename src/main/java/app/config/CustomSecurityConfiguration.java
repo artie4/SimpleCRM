@@ -25,16 +25,16 @@ public class CustomSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     }
 
-/*    @Override
+    @Override
     protected void configure(HttpSecurity http) throws Exception {
 
         http.authorizeRequests()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
-                .loginPage("showLoginPage")
+                .loginPage("/showLoginPage")
                 .loginProcessingUrl("/authenticateTheUser")
                 .permitAll();
 
-    }*/
+    }
 }
