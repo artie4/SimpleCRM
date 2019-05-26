@@ -2,9 +2,6 @@ package app.service;
 
 import app.dao.CustomerDAO;
 import app.model.Customer;
-import org.hibernate.Query;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,7 +12,7 @@ import java.util.UUID;
 @Service
 public class CustomerServiceImpl implements CustomerService {
 
-    // inject customer dao
+    // inject customer app.dao
     @Autowired
     private CustomerDAO customerDAO;
 
