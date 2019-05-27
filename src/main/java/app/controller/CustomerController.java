@@ -14,17 +14,17 @@ import java.util.UUID;
 @RequestMapping("/customer")
 public class CustomerController {
 
-    // inject customer service
+    // inject customer app.service
     @Autowired
     private CustomerService customerService;
 
     @GetMapping("/list")
     public String listCustomers(Model theModel) {
 
-        // get customers from dao
+        // get customers from app.dao
          List<Customer> theCustomers = customerService.getCustomers();
 
-        // add the customers to the model
+        // add the customers to the app.model
         theModel.addAttribute("customers", theCustomers);
 
         return "list-customers";
@@ -33,7 +33,7 @@ public class CustomerController {
     @GetMapping("/showFormForAdd")
     public String showFormForAdd(Model theModel) {
 
-        // create model attribute to bind form data
+        // create app.model attribute to bind form data
         Customer theCustomer = new Customer();
 
         theModel.addAttribute("customer", theCustomer);
@@ -53,10 +53,10 @@ public class CustomerController {
     public String showFormForUpdate(@RequestParam("customerId") UUID theId, Model theModel) {
 
 
-        // get the customer from a service
+        // get the customer from a app.service
         Customer theCustomer = customerService.getCustomer(theId);
 
-        // set customer as a model attribute to pre-populate the form
+        // set customer as a app.model attribute to pre-populate the form
         theModel.addAttribute("customer", theCustomer);
 
         // send over to our form
@@ -77,10 +77,10 @@ public class CustomerController {
     public String searchCustomers(
             @RequestParam("theSearchName") String theSearchName, Model theModel) {
 
-        // search customers from the service
+        // search customers from the app.service
         List<Customer> theCustomers = customerService.searchCustomers(theSearchName);
 
-        // add the customers to the model
+        // add the customers to the app.model
         theModel.addAttribute("customers", theCustomers);
 
         return "list-customers";
