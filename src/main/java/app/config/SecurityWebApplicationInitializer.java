@@ -7,7 +7,4 @@ public class SecurityWebApplicationInitializer
         extends AbstractSecurityWebApplicationInitializer {
 
 
-
-
-
 }
