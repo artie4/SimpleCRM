@@ -60,21 +60,21 @@
 
 					    <!-- Place for messages: error, alert etc ... -->
 					    <div class="form-group">
-					        <div class="col-xs-15">
+					        <div class="col-md-15">
 					            <div>
 										
 								<!-- Check for login error -->
 	
 								<c:if test="${param.error != null}">
 
-									<div class="alert alert-danger col-xs-offset-1 col-xs-10">
+									<div class="alert alert-danger offset-md-1 col-md-10">
 										Invalid username and password.
 									</div>
 								
 								</c:if>
 
 									<c:if test="${param.logout != null}">
-										<div class="alert alert-success col-xs-offset-1 col-xs-10">
+										<div class="alert alert-success offset-md-1 col-md-10">
 											You have been logged out.
 										</div>
 									</c:if>
