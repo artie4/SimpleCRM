@@ -30,17 +30,34 @@
 <body>
 
 <nav class="navbar sticky-top navbar-dark bg-dark">
-    <!-- Navbar content -->
-    <p class="text-success">User:<security:authentication property="principal.username"/></p>
-    <p class="text-success">Role:<security:authentication property="principal.authorities"/></p>
+    <div class="container">
+        <div class="row">
 
-    <form:form action="${pageContext.request.contextPath}/logout"
-               method="post">
+            <div class="col-sm">
+                <form:form action="${pageContext.request.contextPath}/"
+                           method="get">
 
-        <button class="btn btn-outline-success" type="submit">Logout</button>
-    </form:form>
+                    <button class="btn btn-outline-success" type="submit">Home</button>
+                </form:form>
+            </div>
+
+            <div class="col-sm">
+                <!-- Navbar content -->
+                <p class="text-success">User:<security:authentication property="principal.username"/></p>
+            </div>
+            <div class="col-sm no-wrap">
+                <p class="text-success">Role:<security:authentication property="principal.authorities"/></p>
+            </div>
+
+            <div clas="col-sm">
+                <form:form action="${pageContext.request.contextPath}/logout"
+                           method="post">
+
+                    <button class="btn btn-outline-success" type="submit">Logout</button>
+                </form:form>
+            </div>
+        </div>
     </div>
-
 </nav>
 
 <div class="container">
@@ -55,20 +72,20 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm">
-            <!-- put new button: Add Customer -->
-            <input type="button" value="Add Customer"
-                   onclick="window.location.href='showFormForAdd'; return false;"
-                   class="add-button"
-            />
+                    <!-- put new button: Add Customer -->
+                    <input type="button" value="Add Customer"
+                           onclick="window.location.href='showFormForAdd'; return false;"
+                           class="add-button"
+                    />
                 </div>
 
                 <div class="col-sm">
-            <!--  add a search box -->
-            <form:form action="search" method="GET">
-                Search customer: <input type="text" name="theSearchName"/>
+                    <!--  add a search box -->
+                    <form:form action="search" method="GET">
+                        Search customer: <input type="text" name="theSearchName"/>
 
-                <input type="submit" value="Search" class="add-button"/>
-            </form:form>
+                        <input type="submit" value="Search" class="add-button"/>
+                    </form:form>
 
                 </div>
             </div>
@@ -107,9 +124,12 @@
                         <!-- display the update link -->
                         <a href="${updateLink}">Update</a>
 
+                        <!-- restrict customer deletion, permit only for manager role -->
+                        <security:authorize access="hasRole('MANAGER')">
                         <a href="${deleteLink}"
                            onclick="if (!(confirm('Are you sure you want to delete this customer?')))
                             return false">Delete</a>
+                        </security:authorize>
                     </td>
 
                 </tr>

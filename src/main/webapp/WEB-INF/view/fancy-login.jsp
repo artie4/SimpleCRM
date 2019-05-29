@@ -73,7 +73,7 @@
 								
 								</c:if>
 
-									<c:if test="${param.logout != null}">
+									<c:if test="${param.logout == null}">
 										<div class="alert alert-success offset-md-1 col-md-10">
 											You have been logged out.
 										</div>

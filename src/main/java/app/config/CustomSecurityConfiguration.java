@@ -21,7 +21,7 @@ public class CustomSecurityConfiguration extends WebSecurityConfigurerAdapter {
         auth.inMemoryAuthentication()
                 .withUser(users.username("john").password("123").roles("EMPLOYEE"))
                 .withUser(users.username("anna").password("123").roles("MANAGER", "EMPLOYEE"))
-                .withUser(users.username("helen").password("123").roles("ADMIN"));
+                .withUser(users.username("alex").password("123").roles("ADMIN"));
 
     }
 
@@ -32,12 +32,20 @@ public class CustomSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
                 .and()
                 .authorizeRequests()
+                .antMatchers("/").permitAll()
+                .antMatchers("/leaders/**").hasRole("MANAGER")
+                .antMatchers("/systems/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
                 .loginPage("/showLoginPage")
                 .loginProcessingUrl("/authenticateTheUser")
-                .permitAll();
+                .permitAll()
+                .and()
+                .logout().permitAll()
+                .and()
+                .exceptionHandling().accessDeniedPage("/access-denied");
+                ;
 
     }
 }
