@@ -1,10 +1,10 @@
-package app.model;
+package app.entity;
 
 import javax.persistence.*;
 import java.util.UUID;
 
 @Entity
-@Table(name = "customer")
+@Table(schema = "CRMSCH", name = "customer")
 public class Customer {
 
     @Id

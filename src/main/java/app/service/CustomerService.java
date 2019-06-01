@@ -1,6 +1,6 @@
 package app.service;
 
-import app.model.Customer;
+import app.entity.Customer;
 
 import java.util.List;
 import java.util.UUID;

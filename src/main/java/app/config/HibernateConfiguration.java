@@ -27,7 +27,7 @@ public class HibernateConfiguration {
     public LocalSessionFactoryBean sessionFactory() throws SQLException {
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
         sessionFactory.setDataSource(dataSource());
-        sessionFactory.setPackagesToScan("app.model");
+        sessionFactory.setPackagesToScan("app.entity");
         sessionFactory.setHibernateProperties(hibernateProperties());
 
         return sessionFactory;

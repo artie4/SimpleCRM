@@ -1,6 +1,6 @@
 package app.controller;
 
-import app.model.Customer;
+import app.entity.Customer;
 import app.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,7 +24,7 @@ public class CustomerController {
         // get customers from app.dao
          List<Customer> theCustomers = customerService.getCustomers();
 
-        // add the customers to the app.model
+        // add the customers to the app.entity
         theModel.addAttribute("customers", theCustomers);
 
         return "list-customers";
@@ -33,7 +33,7 @@ public class CustomerController {
     @GetMapping("/showFormForAdd")
     public String showFormForAdd(Model theModel) {
 
-        // create app.model attribute to bind form data
+        // create app.entity attribute to bind form data
         Customer theCustomer = new Customer();
 
         theModel.addAttribute("customer", theCustomer);
@@ -56,7 +56,7 @@ public class CustomerController {
         // get the customer from a app.service
         Customer theCustomer = customerService.getCustomer(theId);
 
-        // set customer as a app.model attribute to pre-populate the form
+        // set customer as a app.entity attribute to pre-populate the form
         theModel.addAttribute("customer", theCustomer);
 
         // send over to our form
@@ -80,7 +80,7 @@ public class CustomerController {
         // search customers from the app.service
         List<Customer> theCustomers = customerService.searchCustomers(theSearchName);
 
-        // add the customers to the app.model
+        // add the customers to the app.entity
         theModel.addAttribute("customers", theCustomers);
 
         return "list-customers";

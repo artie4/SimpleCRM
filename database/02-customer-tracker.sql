@@ -23,10 +23,10 @@ USE `web_customer_tracker`;
 --
 
 
-DROP TABLE "SPRINGSTUDENT"."CUSTOMER";
+DROP TABLE "CRMSCH"."CUSTOMER";
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE "SPRINGSTUDENT"."CUSTOMER" (
+CREATE TABLE "CRMSCH"."CUSTOMER" (
   id RAW(16) DEFAULT SYS_GUID(),
   first_name varchar(45) DEFAULT NULL,
   last_name varchar(45) DEFAULT NULL,
@@ -39,23 +39,23 @@ CREATE TABLE "SPRINGSTUDENT"."CUSTOMER" (
 -- Dumping data for table `customer`
 --
 
-LOCK TABLE "springstudent"."customer" PARTITION
+LOCK TABLE "CRMSCH"."customer" PARTITION
 /*!40000 ALTER TABLE `customer` DISABLE KEYS */;
 
-INSERT INTO "SPRINGSTUDENT"."CUSTOMER" (first_name, last_name, email)
+INSERT INTO "CRMSCH"."CUSTOMER" (first_name, last_name, email)
 VALUES ('David','Adams','david@luv2code.com');
-INSERT INTO "SPRINGSTUDENT"."CUSTOMER" (first_name, last_name, email)
+INSERT INTO "CRMSCH"."CUSTOMER" (first_name, last_name, email)
 VALUES 	('John','Doe','john@luv2code.com');
-INSERT INTO "SPRINGSTUDENT"."CUSTOMER" (first_name, last_name, email)
+INSERT INTO "CRMSCH"."CUSTOMER" (first_name, last_name, email)
 VALUES  ('Ajay','Rao','ajay@luv2code.com');
-INSERT INTO "SPRINGSTUDENT"."CUSTOMER" (first_name, last_name, email)
+INSERT INTO "CRMSCH"."CUSTOMER" (first_name, last_name, email)
 VALUES	('Mary','Public','mary@luv2code.com');
-INSERT INTO "SPRINGSTUDENT"."CUSTOMER" (first_name, last_name, email)
+INSERT INTO "CRMSCH"."CUSTOMER" (first_name, last_name, email)
 VALUES	('Maxwell','Dixon','max@luv2code.com');
 
 
 COMMIT;
-select * from SPRINGSTUDENT.CUSTOMER;
+select * from CRMSCH.CUSTOMER;
 /*!40000 ALTER TABLE `customer` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

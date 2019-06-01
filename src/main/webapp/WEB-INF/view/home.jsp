@@ -42,7 +42,7 @@
                 <p class="text-success">Role:<security:authentication property="principal.authorities"/></p>
             </div>
 
-            <div clas="col">
+            <div class="col">
                 <form:form action="${pageContext.request.contextPath}/customer/list"
                            method="get">
 
@@ -50,7 +50,7 @@
                 </form:form>
             </div>
 
-            <div clas="col">
+            <div class="col">
                 <form:form action="${pageContext.request.contextPath}/logout"
                            method="post">
 
