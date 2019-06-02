@@ -1,9 +1,9 @@
 package app.dao;
 
 import app.entity.Customer;
-import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.NativeQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,10 +25,11 @@ public class CustomerDAOImpl implements CustomerDAO {
         Session currentSession = sessionFactory.getCurrentSession();
 
         // create query
-        Query theQuery = currentSession.createQuery("from Customer order by lastName");
+        NativeQuery<Customer> theQuery = currentSession
+                .createNativeQuery("select c.* from Customer c order by LAST_NAME", Customer.class);
 
         // execute query and get result list
-        List<Customer> customers = theQuery.list();
+        List<Customer> customers = theQuery.getResultList();
 
         // return the results
         return customers;
@@ -62,8 +63,9 @@ public class CustomerDAOImpl implements CustomerDAO {
 
         Session currentSession = sessionFactory.getCurrentSession();
 
-        Query theQuery =
-                currentSession.createQuery("delete from Customer where id=:customerId");
+        NativeQuery<Customer> theQuery =
+                currentSession
+                        .createNativeQuery("delete from Customer where id=:customerId", Customer.class);
         theQuery.setParameter("customerId", theId);
 
         theQuery.executeUpdate();
@@ -76,7 +78,7 @@ public class CustomerDAOImpl implements CustomerDAO {
         // get the current hibernate session
         Session currentSession = sessionFactory.getCurrentSession();
 
-        Query theQuery = null;
+        NativeQuery<Customer> theQuery = null;
 
         //
         // only search by name if theSearchName is not empty
@@ -85,8 +87,9 @@ public class CustomerDAOImpl implements CustomerDAO {
         if(theSearchName != null && theSearchName.trim().length() > 0) {
 
             // search for firstName or lastName ... case insensitive
-            theQuery = currentSession.createQuery("from Customer where lower(firstName) like :theName or" +
-                    " lower(lastName) like :theName");
+            theQuery = currentSession.createNativeQuery("select c.* from Customer c " +
+                    "where lower(FIRST_NAME) like :theName or" +
+                    " lower(LAST_NAME) like :theName", Customer.class);
 
             theQuery.setParameter("theName", "%" + theSearchName.toLowerCase() + "%");
 
@@ -95,10 +98,11 @@ public class CustomerDAOImpl implements CustomerDAO {
         else {
 
             // theSearchName is empty ... so just get all customers
-            theQuery = currentSession.createQuery("from Customer");
+            theQuery = currentSession
+                    .createNativeQuery("select c.* from Customer c", Customer.class);
         }
 
-        List<Customer> customers = theQuery.list();
+        List<Customer> customers = theQuery.getResultList();
 
         return customers;
     }

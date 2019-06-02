@@ -1,14 +1,8 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
-<%--
-  Created by IntelliJ IDEA.
-  User: arthur
-  Date: 26.05.19
-  Time: 15:28
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <html>
 <head>
     <title>Welcome</title>
@@ -34,6 +28,7 @@
 <nav class="navbar sticky-top navbar-dark bg-dark">
     <div class="container">
         <div class="row">
+            <security:authorize access="isAuthenticated()">
             <div class="col-sm">
                 <!-- Navbar content -->
                 <p class="text-success">User:<security:authentication property="principal.username"/></p>
@@ -49,6 +44,7 @@
                     <button class="btn btn-outline-success" type="submit">Customers</button>
                 </form:form>
             </div>
+            </security:authorize>
 
             <div class="col">
                 <form:form action="${pageContext.request.contextPath}/logout"

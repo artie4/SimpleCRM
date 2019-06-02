@@ -1,10 +1,13 @@
 package app.entity;
 
+import org.hibernate.annotations.BatchSize;
+
 import javax.persistence.*;
 import java.util.UUID;
 
 @Entity
 @Table(schema = "CRMSCH", name = "customer")
+@BatchSize(size = 50)
 public class Customer {
 
     @Id
