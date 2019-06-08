@@ -29,16 +29,20 @@ public class CustomerRestController {
     private CustomerService customerService;
 
     // add mapping for GET /customers
-    @RequestMapping(value = "/customers",
-            produces = MediaType.APPLICATION_JSON_VALUE,
-            method = RequestMethod.GET)
+    @RequestMapping(
+            value = "/customers",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
     public List<Customer> getCustomers() {
 
         return customerService.getCustomers();
 
     }
 
-    @RequestMapping("/customers/{customerId}")
+    @RequestMapping(value = "/customers/{customerId}",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
     public Customer getCustomer(@PathVariable UUID customerId) {
 
         Customer customer = customerService.getCustomer(customerId);
@@ -51,6 +55,29 @@ public class CustomerRestController {
 
     }
 
+    @PutMapping("/customers")
+    public Customer updateCustomer(@RequestBody Customer customer) {
 
+        customerService.saveCustomer(customer);
+
+        return customer;
+    }
+
+    @RequestMapping(value = "/customers/{customerId}",
+            method = RequestMethod.DELETE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public String deleteCustomerById(@PathVariable UUID customerId) {
+
+        Customer customer = customerService.getCustomer(customerId);
+
+        if (customer == null) {
+            throw new CustomerNotFoundException("Customer id not found " + customerId);
+        }
+
+        customerService.deleteCustomer(customerId);
+
+        return "Deleted customer id - " + customerId;
+
+    }
 
 }
