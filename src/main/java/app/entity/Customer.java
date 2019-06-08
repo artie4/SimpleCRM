@@ -15,7 +15,7 @@ public class Customer {
 //    @GeneratedValue(generator = "UUID")
 //    @GenericGenerator(
 //            name = "UUID",
-//            strategy = "org.hibernate.id.UUIDGenerate"
+//            strategy = "org.hibernate.id.UUIDGenerate"1
 //    )
     @Column(name = "id", updatable = false, nullable = false)
     private UUID id;
@@ -60,6 +60,8 @@ public class Customer {
     public void setEmail(String email) {
         this.email = email;
     }
+
+
 
     @Override
     public String toString() {

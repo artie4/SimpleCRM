@@ -34,16 +34,23 @@ public class CustomSecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-        http.sessionManagement().
-                sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
+        http
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
                 .and()
+                .cors()
+                .and()
+                .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/").permitAll()
-                .antMatchers("/home").permitAll()
-                .antMatchers("/register/**").permitAll()
-                .antMatchers("/leaders/**").hasRole("MANAGER")
-                .antMatchers("/systems/**").hasRole("ADMIN")
-                .anyRequest().authenticated()
+//                .antMatchers(HttpMethod.GET, "/**").hasAnyRole("ADMIN", "USER")
+//                .antMatchers(HttpMethod.POST, "/routeA/**").hasAnyRole("ADMIN", "USER")
+//                .antMatchers(HttpMethod.POST, "/routeB/**").hasRole("ADMIN")
+//                .antMatchers(HttpMethod.DELETE, "/routeB/**").hasRole("ADMIN")
+//                .and()
+//                .requestCache().requestCache(new NullRequestCache())
+                .anyRequest()
+                .authenticated()
+                .and()
+                .httpBasic()
                 .and()
                 .formLogin()
                 .loginPage("/showLoginPage")
