@@ -6,7 +6,7 @@ import java.util.Collection;
 import java.util.UUID;
 
 @Entity
-@Table(schema = "CRMSCH", name = "users")
+@Table(name = "users")
 public class User {
 
     public User(String userName, String password, String firstName,
@@ -49,7 +49,7 @@ public class User {
     private int enabled;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(schema = "CRMSCH", name = "users_roles",
+    @JoinTable(name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Collection<Role> roles;

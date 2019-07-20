@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.UUID;
 
 @Entity
-@Table(schema = "CRMSCH", name = "roles")
+@Table(name = "roles")
 public class Role {
 
     @Id

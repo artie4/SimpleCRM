@@ -1,7 +1,7 @@
 package app.controller;
 
-import app.model.CrmUser;
 import app.entity.User;
+import app.model.CrmUser;
 import app.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.persistence.NoResultException;
 import javax.validation.Valid;
@@ -30,11 +31,12 @@ public class RegistrationController {
     }
 
     @GetMapping("/showRegistrationForm")
-    public String showMyLoginPage(Model theModel) {
+    public ModelAndView showMyLoginPage(Model theModel) {
 
-        theModel.addAttribute("crmUser", new CrmUser());
-
-        return "registration-form";
+        ModelAndView modelAndView = new ModelAndView("registrationForm");
+        modelAndView.addObject("crmUser", new CrmUser());
+        modelAndView.setViewName("registration-form");
+        return modelAndView;
 
     }
 

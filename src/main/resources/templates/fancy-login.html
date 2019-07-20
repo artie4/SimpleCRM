@@ -1,9 +1,6 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!doctype html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 
 <head>
 
@@ -34,15 +31,16 @@
 <nav class="navbar navbar-dark bg-dark">
     <div class="container">
         <!-- Navbar content -->
-        <form:form action="${pageContext.request.contextPath}/logout"
+        <form th:action="@{/logout}"
                    method="post">
 
             <button class="btn btn-outline-success" type="submit" disabled>Logout</button>
-        </form:form>
+        </form>
     </div>
 </nav>
 
 <div>
+
 
     <div id="loginbox" style="margin-top: 50px;"
          class="mainbox col-md-3 col-md-offset-2 col-sm-6 col-sm-offset-2">
@@ -56,7 +54,7 @@
             <div style="padding-top: 30px" class="panel-body">
 
                 <!-- Login Form -->
-                <form:form action="${pageContext.request.contextPath}/authenticateTheUser"
+                <form th:action="@{/authenticateTheUser}"
                            method="POST" class="form-horizontal">
 
                     <!-- Place for messages: error, alert etc ... -->
@@ -66,19 +64,19 @@
 
                                 <!-- Check for login error -->
 
-                                <c:if test="${param.error != null}">
+                                <div th:if="${param.error != null}">
 
                                     <div class="alert alert-danger offset-md-1 col-md-10">
                                         Invalid username and password.
                                     </div>
 
-                                </c:if>
+                                </div>
 
-                                <c:if test="${param.logout != null}">
+                                <div th:if="${param.logout != null}">
                                     <div class="alert alert-success offset-md-1 col-md-10">
                                         You have been logged out.
                                     </div>
-                                </c:if>
+                                </div>
 
                             </div>
                         </div>
@@ -105,14 +103,14 @@
                         </div>
                     </div>
 
-                </form:form>
+                </form>
 
             </div>
 
         </div>
 
         <div>
-            <a href="${pageContext.request.contextPath}/register/showRegistrationForm"
+            <a th:href="@{/register/showRegistrationForm}"
                class="btn btn-primary"
                role="button" aria-pressed="true">
                 Register New User

@@ -36,7 +36,7 @@ public class CustomerRestController {
     )
     public List<Customer> getCustomers() {
 
-        return customerService.getCustomers();
+        return (List<Customer>) customerService.getCustomers();
 
     }
 
