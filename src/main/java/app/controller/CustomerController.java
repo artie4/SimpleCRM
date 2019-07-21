@@ -21,7 +21,7 @@ public class CustomerController {
     @GetMapping("/list")
     public String listCustomers(Model theModel) {
 
-        // get customers from app.dao
+        // get customers from app.repository
          List<Customer> theCustomers = customerService.getCustomers();
 
         // add the customers to the app.entity
