@@ -12,11 +12,7 @@ public class Customer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-//    @GeneratedValue(generator = "UUID")
-//    @GenericGenerator(
-//            name = "UUID",
-//            strategy = "org.hibernate.id.UUIDGenerate"1
-//    )
+
     @Column(name = "id", updatable = false, nullable = false)
     private UUID id;
 

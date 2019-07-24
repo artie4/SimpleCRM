@@ -1,40 +1,40 @@
 package app.config;
 
+import app.entity.User;
 import app.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
+import javax.servlet.http.HttpSession;
+import java.util.logging.Logger;
 
-@Configuration
 @EnableWebSecurity
 public class CustomSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
+    private final UserService userService;
+    private final PasswordEncoder passwordEncoder;
 
-    @Autowired
-    private UserService userService;
-
-    @Autowired
-    private CustomAuthenticationSuccessHandler authenticationSuccessHandler;
-
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-
-        auth.authenticationProvider(authenticationProvider());
-
+    public CustomSecurityConfiguration(UserService userService, PasswordEncoder passwordEncoder) {
+        this.userService = userService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
-    protected void configure(HttpSecurity http) throws Exception {
+    protected void configure(AuthenticationManagerBuilder auth) {
+        auth.authenticationProvider(authenticationProvider());
+    }
 
-        http
+    @Override
+    protected void configure(HttpSecurity httpSecurity) throws Exception {
+
+        httpSecurity
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
                 .and()
                 .cors()
@@ -55,7 +55,7 @@ public class CustomSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .formLogin()
                 .loginPage("/showLoginPage")
                 .loginProcessingUrl("/authenticateTheUser")
-                .successHandler(authenticationSuccessHandler)
+                .successHandler(authenticationSuccessHandler())
                 .permitAll()
                 .and()
                 .logout().permitAll()
@@ -64,34 +64,25 @@ public class CustomSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     }
 
-    //    @Bean
-//    public PasswordEncoder customPasswordEncoder() {
-//        return new PasswordEncoder() {
-//            @Override
-//            public String encode(CharSequence rawPassword) {
-//                return BCrypt.hashpw(rawPassword.toString(), BCrypt.gensalt(4));
-//            }
-//            @Override
-//            public boolean matches(CharSequence rawPassword, String encodedPassword) {
-//                return BCrypt.checkpw(rawPassword.toString(), encodedPassword);
-//            }
-//        };
-//    }
-
-
-    // bcrypt bean definition
-    @Bean
-    public BCryptPasswordEncoder passwordEncoder() {
-
-        return new BCryptPasswordEncoder();
-    }
-
     // authenticationProvider bean definition
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider auth = new DaoAuthenticationProvider();
         auth.setUserDetailsService(userService);
-        auth.setPasswordEncoder(passwordEncoder());
+        auth.setPasswordEncoder(passwordEncoder);
         return auth;
+    }
+
+    private AuthenticationSuccessHandler authenticationSuccessHandler() {
+        return (httpServletRequest, httpServletResponse, authentication) -> {
+            Logger logger = Logger.getLogger("loggerAuth");
+            logger.info("\n\n In customAuthenticationSuccessHandler \n\n");
+            String userName = authentication.getName();
+            logger.info("userName= " + userName);
+            User user = userService.findByUserName(userName);
+            HttpSession session = httpServletRequest.getSession();
+            session.setAttribute("user", user);
+            httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + "/");
+        };
     }
 }

@@ -3,7 +3,6 @@ package app.controller;
 import app.entity.User;
 import app.model.CrmUser;
 import app.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,8 +18,11 @@ import javax.validation.Valid;
 @RequestMapping("/register")
 public class RegistrationController {
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
+
+    public RegistrationController(UserService userService) {
+        this.userService = userService;
+    }
 
     @InitBinder
     public void initBinder(WebDataBinder dataBinder) {

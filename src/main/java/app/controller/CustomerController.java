@@ -2,7 +2,6 @@ package app.controller;
 
 import app.entity.Customer;
 import app.service.CustomerService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -15,8 +14,11 @@ import java.util.UUID;
 public class CustomerController {
 
     // inject customer app.service
-    @Autowired
-    private CustomerService customerService;
+    private final CustomerService customerService;
+
+    public CustomerController(CustomerService customerService) {
+        this.customerService = customerService;
+    }
 
     @GetMapping("/list")
     public String listCustomers(Model theModel) {
